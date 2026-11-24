@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronRight, FolderOpen, Lock, Share2, Users, Zap } from "lucide-react";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Feature197 } from "@/components/ui/accordion-feature-section";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Testimonials } from "@/components/ui/testimonials-columns";
 import checkout from "@/assets/cevora-terminal.png";
 import dashboard from "@/assets/cevora-dashboard.png";
@@ -54,6 +55,11 @@ const accordionFeatures = [{
   title: "Ask your sales data a question",
   image: aiReport,
   description: "Use the optional AI Report Builder to ask a question, filter by date and location, and export the results to Excel."
+}, {
+  id: 4,
+  title: "Turn POS activity into journal vouchers",
+  image: journal,
+  description: "Map payments and products to ledger accounts, then generate journal vouchers for review and posting."
 }];
 const workspaceScreenshots = [
   { src: dashboard, title: "Operations dashboard" },
@@ -148,6 +154,17 @@ const bentoFeatures = [{
   className: "lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-3"
 }];
 export default function Landing() {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => carouselApi.scrollNext(), 5000);
+    return () => window.clearInterval(intervalId);
+  }, [carouselApi]);
+
   return <div className="overflow-hidden bg-background">
       {/* Hero Section */}
       {/* Pull hero background behind the fixed navbar (navbar lives in PublicLayout) */}
@@ -259,7 +276,7 @@ export default function Landing() {
             <h2 id="workspace-gallery-title" className="mb-8 text-center text-xl font-semibold text-foreground sm:text-2xl">
               A look at the Cevora POS workspace
             </h2>
-            <Carousel aria-labelledby="workspace-gallery-title" opts={{ loop: true }}>
+            <Carousel aria-labelledby="workspace-gallery-title" opts={{ loop: true }} setApi={setCarouselApi}>
               <CarouselContent className="touch-pan-y">
                 {workspaceScreenshots.map(({ src, title }) => (
                   <CarouselItem key={src}>
@@ -334,30 +351,6 @@ export default function Landing() {
       {/* Features Section - Accordion */}
       <Feature197 features={accordionFeatures} title="See Cevora POS in action" description="Explore the operations dashboard, inventory workspace, and optional AI reporting." />
 
-      <section className="py-20 lg:py-28">
-        <div className="container mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <img
-            src={journal}
-            alt="General Ledger journal voucher details"
-            loading="lazy"
-            className="h-auto w-full rounded-2xl border border-border/60 shadow-xl shadow-foreground/5"
-          />
-          <div>
-            <p className="mb-3 text-sm font-medium uppercase tracking-wide text-primary">
-              Optional General Ledger
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Turn POS activity into journal vouchers
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Map payments and products to ledger accounts, then generate journal vouchers for review and posting.
-            </p>
-            <Button className="mt-6" variant="outline" asChild>
-              <Link to="/pricing">Explore plans and optional modules</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <Testimonials title="POS capabilities" subtitle="Tools for each part of the business" description="Explore the features and optional modules behind the checkout." testimonials={moduleHighlights} />
