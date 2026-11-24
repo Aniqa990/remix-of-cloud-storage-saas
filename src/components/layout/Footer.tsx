@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Cloud } from "lucide-react";
 
 const footerLinks = {
   product: [
@@ -29,11 +28,10 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <Cloud className="w-6 h-6 text-foreground" />
-              <span className="text-lg font-semibold text-foreground">Cloudly</span>
+              <img src="/cevora-mark.png" alt="Ceevora POS" className="h-6 w-auto object-contain" />
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              The connected workspace where better, faster work happens.
+              Offline-capable checkout, inventory, journal voucher generation, and sales reporting for cafés, bakeries, and retailers.
             </p>
           </div>
 
@@ -94,7 +92,7 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Cloudly, Inc.</p>
+            <p>© {new Date().getFullYear()} Ceevora POS</p>
             <div className="flex items-center gap-6">
               <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
               <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>

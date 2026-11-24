@@ -47,23 +47,23 @@ export default function Webinar() {
     
     setIsSubmitting(false);
     setIsRegistered(true);
-    toast.success("You're registered! Check your email for details.");
+    toast.success("Form preview complete. No registration was sent.");
   };
 
   const webinarDetails = {
-    title: "Cloudly Live Demo: Master Your Files",
-    date: "Friday, February 7, 2025",
-    time: "2:00 PM EST",
-    duration: "45 minutes",
-    spots: "Limited to 100 attendees",
+    title: "Cevora POS Product Walkthrough",
+    date: "To be announced",
+    time: "To be announced",
+    duration: "To be announced",
+    spots: "Schedule pending",
   };
 
   const whatYouLearn = [
-    "How to organize files with smart folders and tags",
-    "Secure sharing with granular permissions",
-    "Real-time collaboration with your team",
-    "AI-powered search and document insights",
-    "Q&A session with our product team",
+    "Ring up a sale, hold an order, and split a payment",
+    "Manage cash movements and reconcile a shift",
+    "Set up menus, promotions, and recipe-based stock tracking",
+    "Run a standard sales report and explore optional AI reporting",
+    "See how reporting and access work across stores",
   ];
 
   return (
@@ -83,7 +83,7 @@ export default function Webinar() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                <span className="text-sm font-medium text-foreground">Live Event</span>
+                <span className="text-sm font-medium text-foreground">Product overview</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
@@ -91,8 +91,7 @@ export default function Webinar() {
               </h1>
 
               <p className="text-lg text-muted-foreground mb-8">
-                Join us for an exclusive live demonstration of Cloudly's powerful features. 
-                See how leading teams are transforming their file management workflow.
+                See how Cevora POS handles checkout, cash reconciliation, inventory, and reporting for shops, cafés, and bakeries.
               </p>
 
               {/* Event Info Cards */}
@@ -157,10 +156,10 @@ export default function Webinar() {
                 {!isRegistered ? (
                   <>
                     <h2 className="text-2xl font-bold text-foreground mb-2">
-                      Reserve your spot
+                      Demo form preview
                     </h2>
                     <p className="text-muted-foreground mb-6">
-                      Fill out the form below to register for the webinar. You'll receive a confirmation email with the event link.
+                      This form is a preview. It does not create a booking or send email.
                     </p>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -221,11 +220,11 @@ export default function Webinar() {
                         className="w-full h-12 text-base bg-black hover:bg-black/90"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "Registering..." : "Register for free"}
+                        {isSubmitting ? "Checking..." : "Preview submission"}
                       </Button>
 
                       <p className="text-xs text-center text-muted-foreground">
-                        By registering, you agree to receive emails about this event. You can unsubscribe at any time.
+                        A confirmed event date will appear here when available.
                       </p>
                     </form>
                   </>
@@ -235,10 +234,10 @@ export default function Webinar() {
                       <CheckCircle2 className="w-8 h-8 text-green-500" />
                     </div>
                     <h2 className="text-2xl font-bold text-foreground mb-2">
-                      You're registered!
+                      Preview complete
                     </h2>
                     <p className="text-muted-foreground mb-6">
-                      Check your inbox for a confirmation email with the webinar link and calendar invite.
+                      The form preview finished. A demo reservation was not created.
                     </p>
                     <Button variant="outline" asChild>
                       <Link to="/">Back to homepage</Link>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cloud, Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Start Here", href: "/webinar" },
+  { name: "Walkthrough", href: "/webinar" },
   { name: "Pricing", href: "/pricing" },
   { name: "Help", href: "/help" },
 ];
@@ -33,8 +33,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <Cloud className="w-8 h-8 text-foreground" />
-            <span className="text-xl font-semibold text-foreground">Cloudly</span>
+            <img src="/cevora-mark.png" alt="Ceevora POS" className="h-8 w-auto object-contain" />
           </Link>
 
           {/* Desktop Navigation - Left aligned */}
@@ -53,10 +52,10 @@ export function Navbar() {
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/login">Log in</Link>
+              <Link to="/login">Login</Link>
             </Button>
             <Button size="sm" className="bg-black hover:bg-black/90" asChild>
-              <Link to="/signup">Get Cloudly free</Link>
+              <Link to="/signup">Create an account</Link>
             </Button>
           </div>
 
@@ -94,10 +93,10 @@ export function Navbar() {
               ))}
               <div className="pt-4 mt-4 border-t border-border space-y-2">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link to="/login">Log in</Link>
+                  <Link to="/login">Login</Link>
                 </Button>
                 <Button className="w-full bg-black hover:bg-black/90" asChild>
-                  <Link to="/signup">Get Cloudly free</Link>
+                  <Link to="/signup">Create an account</Link>
                 </Button>
               </div>
             </div>

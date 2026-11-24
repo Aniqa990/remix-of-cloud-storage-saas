@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Cloud, ArrowRight, ChevronRight, FileText, Calendar, Users, Zap, Globe, Lock, Sparkles, Home, FolderOpen, Clock, Star, Share2, Trash2, Search, User, Upload, Folder, Settings, Bell, ChevronDown, FolderPlus, MoreHorizontal } from "lucide-react";
+import { ChevronRight, FolderOpen, Lock, Share2, Users, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Feature197 } from "@/components/ui/accordion-feature-section";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { Testimonials } from "@/components/ui/testimonials-columns";
-import cloudlyFiles from "@/assets/cloudly-files.png";
-import cloudlyCalendar from "@/assets/cloudly-calendar.png";
-import cloudlyTeam from "@/assets/cloudly-team.png";
-import heroDashboardFrame from "@/assets/hero-dashboard-frame.png";
+import checkout from "@/assets/cevora-terminal.png";
+import dashboard from "@/assets/cevora-dashboard.png";
+import stock from "@/assets/cevora-stock.png";
+import aiReport from "@/assets/cevora-AI_report.png";
+import promotions from "@/assets/cevora_promotions.png";
+import products from "@/assets/cevora-products.png";
+import stores from "@/assets/cevora-stores.png";
+import standardReports from "@/assets/cevora-static_report.png";
+import integrations from "@/assets/cevora-integrations.png";
+import customerOrders from "@/assets/cevora-business_customers.png";
+import journal from "@/assets/cevora-jv_details.png";
+import transactions from "@/assets/cevora-transaction_history.png";
 import heroCloudsBg from "@/assets/hero-clouds-bg.png";
 const transitionVariants = {
   item: {
@@ -30,116 +38,102 @@ const transitionVariants = {
     }
   }
 };
-const trustedCompanies = ["Nvidia", "Figma", "Pixar", "Spotify", "Stripe", "Toyota", "Headspace"];
 const accordionFeatures = [{
   id: 1,
-  title: "Files & Docs",
-  image: cloudlyFiles,
-  description: "Store any file, create rich docs, and keep everything organized in one workspace. Drag and drop uploads, instant previews, and seamless sharing."
+  title: "See how the day is going",
+  image: dashboard,
+  description: "Track net sales, order counts, average order value, and hourly activity from the operations dashboard."
 }, {
   id: 2,
-  title: "Calendar & Scheduling",
-  image: cloudlyCalendar,
-  description: "Built-in calendar to track deadlines and file schedules across your team. Never miss an important date with smart reminders and notifications."
+  title: "Know what’s in stock",
+  image: stock,
+  description: "See available stock, batches, and expiry dates. Set reorder rules and track ingredients as you sell."
 }, {
   id: 3,
-  title: "Team Spaces",
-  image: cloudlyTeam,
-  description: "Dedicated spaces for every team. Marketing, Engineering, Design—all in one place. Collaborate in real-time with granular permissions."
+  title: "Ask your sales data a question",
+  image: aiReport,
+  description: "Use the optional AI Report Builder to ask a question, filter by date and location, and export the results to Excel."
 }];
-const testimonials = [{
-  text: "Cloudly revolutionized how our team handles documents. Everything is organized and accessible from anywhere.",
-  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-  name: "Sarah Chen",
-  role: "Product Manager"
+const moduleHighlights = [{
+  text: "Organize products by category, add photos and barcodes, and build store menus with standard items and combos.",
+  image: products,
+  name: "Products and menus",
+  role: "Catalog"
 }, {
-  text: "The collaboration features are incredible. We reduced our meeting time by 40% just by sharing files more efficiently.",
-  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
-  name: "Marcus Johnson",
-  role: "Engineering Lead"
+  text: "Track batches and expiry dates, review stock counts, and deduct ingredients as recipe items sell.",
+  image: stock,
+  name: "Stock and recipes",
+  role: "Inventory"
 }, {
-  text: "Finally, a file management tool that actually makes sense. The AI search is a game-changer for our legal team.",
-  image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-  name: "Emily Rodriguez",
-  role: "Legal Counsel"
+  text: "Schedule discounts and bundles, target branches or products, and control how offers combine.",
+  image: promotions,
+  name: "Offers and coupons",
+  role: "Promotions"
 }, {
-  text: "We migrated from three different tools to Cloudly. Best decision we made this year.",
-  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
-  name: "David Park",
-  role: "CTO"
+  text: "Manage branches, stores, and tills, with access scoped to each manager’s assigned locations.",
+  image: stores,
+  name: "Store management",
+  role: "Multi-location"
 }, {
-  text: "The security features give us peace of mind. Enterprise-grade protection without the enterprise complexity.",
-  image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
-  name: "Olivia Martinez",
-  role: "Security Director"
+  text: "Export daily sales, category, promotions, and VAT reports to CSV or Excel.",
+  image: standardReports,
+  name: "Standard sales reports",
+  role: "Reporting"
 }, {
-  text: "Our remote team feels more connected than ever. Cloudly made async collaboration actually work.",
-  image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
-  name: "James Wilson",
-  role: "Operations Manager"
+  text: "Ask about sales, filter by dates and locations, and download the report in Excel.",
+  image: aiReport,
+  name: "Questions in plain language",
+  role: "AI Report Builder"
 }, {
-  text: "The onboarding was seamless. Our whole team was up and running in less than a day.",
-  image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop",
-  name: "Anna Thompson",
-  role: "HR Director"
+  text: "Review orders, map provider items to your catalog, and accept or reject incoming orders from enabled integrations.",
+  image: integrations,
+  name: "Provider order inbox",
+  role: "Delivery"
 }, {
-  text: "Customer support is phenomenal. They helped us set up custom workflows that saved hours each week.",
-  image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
-  name: "Michael Lee",
-  role: "Customer Success"
+  text: "Set customer prices and credit terms, reuse standing orders, and prepare production lists by kitchen.",
+  image: customerOrders,
+  name: "Business accounts",
+  role: "Customer orders"
 }, {
-  text: "The mobile app is just as powerful as desktop. I can approve documents from anywhere now.",
-  image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop",
-  name: "Rachel Kim",
-  role: "CEO"
-}];
-const features = [{
-  icon: FileText,
-  title: "Files & Docs",
-  description: "Store any file, create rich docs, and keep everything organized in one workspace."
-}, {
-  icon: Calendar,
-  title: "Calendar",
-  description: "Built-in calendar to track deadlines and file schedules across your team."
-}, {
-  icon: Users,
-  title: "Team spaces",
-  description: "Dedicated spaces for every team. Marketing, Engineering, Design—all in one place."
+  text: "Map payments and products to accounts, then generate, review, and post journal vouchers.",
+  image: journal,
+  name: "Journal vouchers",
+  role: "General ledger"
 }];
 const bentoFeatures = [{
   Icon: FolderOpen,
-  name: "Organize Everything",
-  description: "Smart folders, customizable tags, and powerful search to keep all your files perfectly organized and instantly accessible.",
+  name: "Offline Checkout",
+  description: "Scan items, hold orders, split payments, and keep ringing up core counter sales during an internet outage. Sales sync when the connection returns.",
   href: "/signup",
-  cta: "Get started",
+  cta: "Create an account",
   className: "lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2"
 }, {
   Icon: Share2,
-  name: "Share Securely",
-  description: "Secure links with granular permissions.",
+  name: "Shifts and Cash",
+  description: "Record cash movements and reconcile the drawer at shift close.",
   href: "/signup",
-  cta: "Learn more",
+  cta: "Create an account",
   className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
 }, {
   Icon: Users,
-  name: "Team Collaboration",
-  description: "Real-time collaboration on any file.",
+  name: "Products and Menus",
+  description: "Build store menus with product photos, barcodes, and combos.",
   href: "/signup",
-  cta: "Learn more",
+  cta: "Create an account",
   className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3"
 }, {
   Icon: Lock,
-  name: "Enterprise Security",
-  description: "Bank-level encryption and compliance.",
+  name: "Staff Permissions",
+  description: "Set role-based access and require manager approval for returns and voids.",
   href: "/signup",
-  cta: "Learn more",
+  cta: "Create an account",
   className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2"
 }, {
   Icon: Zap,
-  name: "Lightning Fast",
-  description: "Instant uploads, previews, and search.",
+  name: "Sales Reports",
+  description: "Review sales by store, shift, product, or category.",
   href: "/signup",
-  cta: "Try it now",
+  cta: "Create an account",
   className: "lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-3"
 }];
 export default function Landing() {
@@ -183,31 +177,31 @@ export default function Landing() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-primary font-medium text-sm">Live Demo Webinar</span>
+                  <span className="text-primary font-medium text-sm">Product walkthrough</span>
                   <ChevronRight className="size-4 text-primary" />
                 </Link>
 
                 {/* Main Headline */}
                 <h1 className="mt-8 text-balance text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  <span className="block">Everything you need,</span>
-                  <span className="block mt-2">All in one place.</span>
+                  <span className="block">Point of sale for</span>
+                  <span className="block mt-2">cafés, bakeries, and shops</span>
                 </h1>
 
                 {/* Description */}
                 <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl">
-                  Cloudly is the connected workspace where better, faster work happens. Store, share, and collaborate on files with your team.
+                  Ring up sales, manage stock, and see how each store is doing. Cevora POS supports English and Arabic and keeps core checkout running when the internet drops.
                 </p>
 
                 {/* CTA Buttons */}
                 <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Button size="lg" className="h-11 px-6 text-base bg-black hover:bg-black/90" asChild>
                     <Link to="/signup">
-                      <span className="text-nowrap">Get Cloudly free</span>
+                      <span className="text-nowrap">Create an account</span>
                     </Link>
                   </Button>
                   <Button size="lg" variant="ghost" className="h-11 px-6 text-base bg-muted hover:bg-muted/80 text-foreground" asChild>
                     <Link to="/pricing">
-                      <span className="text-nowrap">Request a demo</span>
+                      <span className="text-nowrap">Compare plans</span>
                     </Link>
                   </Button>
                 </div>
@@ -228,8 +222,8 @@ export default function Landing() {
                 {/* Exact uploaded screenshot */}
                 <div className="relative mx-auto mt-16 sm:mt-20 w-full max-w-5xl md:max-w-[92vw] lg:max-w-6xl xl:max-w-7xl">
                   <img
-                    src={heroDashboardFrame}
-                    alt="Cloudly dashboard in a browser frame"
+                    src={checkout}
+                    alt="Cevora checkout showing product categories, a cart, and an applied promotion"
                     loading="lazy"
                     className="h-auto w-full rounded-2xl border border-border/60 shadow-2xl shadow-foreground/5"
                   />
@@ -253,37 +247,37 @@ export default function Landing() {
         }} className="mx-auto mt-20 mb-8 max-w-5xl px-6">
             <div className="flex flex-col items-center">
               <p className="text-muted-foreground text-sm font-medium mb-8">
-                Meet Our Customers
+                A look at the Cevora POS workspace
               </p>
               <div className="flex items-center justify-center flex-wrap gap-x-12 gap-y-8">
                 {[{
-                src: "https://cdn.worldvectorlogo.com/logos/nvidia-image-logo.svg",
-                alt: "Nvidia",
-                height: "h-8"
+                src: dashboard,
+                alt: "Operations dashboard",
+                height: "h-12"
               }, {
-                src: "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
-                alt: "Figma",
-                height: "h-6"
+                src: transactions,
+                alt: "Transaction history",
+                height: "h-12"
               }, {
-                src: "https://cdn.worldvectorlogo.com/logos/samsung-8.svg",
-                alt: "Samsung",
-                height: "h-5"
+                src: products,
+                alt: "Product catalog",
+                height: "h-12"
               }, {
-                src: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
-                alt: "Spotify",
-                height: "h-7"
+                src: promotions,
+                alt: "Promotion setup",
+                height: "h-12"
               }, {
-                src: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg",
-                alt: "Stripe",
-                height: "h-8"
+                src: stock,
+                alt: "Stock levels",
+                height: "h-12"
               }, {
-                src: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg",
-                alt: "Shopify",
-                height: "h-7"
+                src: standardReports,
+                alt: "Standard reports",
+                height: "h-12"
               }, {
-                src: "/logos/google.svg",
-                alt: "Google",
-                height: "h-8"
+                src: stores,
+                alt: "Store management",
+                height: "h-12"
               }].map((logo, index) => <motion.img key={logo.alt} src={logo.src} alt={logo.alt} className={`${logo.height} w-auto opacity-60 hover:opacity-80 transition-opacity grayscale`} initial={{
                 opacity: 0,
                 y: 10
@@ -318,10 +312,10 @@ export default function Landing() {
             once: true
           }} className="text-center mb-12">
               <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-                Everything you need
+                Run the counter and back office
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                A complete toolkit for modern file management and team collaboration.
+                Take payments, close shifts, update menus, and track sales from one system.
               </p>
             </motion.div>
             <motion.div initial={{
@@ -345,10 +339,35 @@ export default function Landing() {
       </section>
 
       {/* Features Section - Accordion */}
-      <Feature197 features={accordionFeatures} title="Upload & Share with your team" description="Powerful features to help your team work smarter, not harder." />
+      <Feature197 features={accordionFeatures} title="See Cevora POS in action" description="Explore the operations dashboard, inventory workspace, and optional AI reporting." />
+
+      <section className="py-20 lg:py-28">
+        <div className="container mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <img
+            src={journal}
+            alt="General Ledger journal voucher details"
+            loading="lazy"
+            className="h-auto w-full rounded-2xl border border-border/60 shadow-xl shadow-foreground/5"
+          />
+          <div>
+            <p className="mb-3 text-sm font-medium uppercase tracking-wide text-primary">
+              Optional General Ledger
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Turn POS activity into journal vouchers
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Map payments and products to ledger accounts, then generate journal vouchers for review and posting.
+            </p>
+            <Button className="mt-6" variant="outline" asChild>
+              <Link to="/pricing">Explore plans and optional modules</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Testimonials Section */}
-      <Testimonials title="Testimonials" subtitle="Loved by teams worldwide" description="See what our customers have to say about their experience with Cloudly." testimonials={testimonials} />
+      <Testimonials title="POS capabilities" subtitle="Tools for each part of the business" description="Explore the features and optional modules behind the checkout." testimonials={moduleHighlights} />
 
       {/* Final CTA */}
       <section className="py-24 lg:py-32 bg-black">
@@ -368,20 +387,20 @@ export default function Landing() {
               Ready to get started?
             </p>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-background tracking-tight mb-6">
-              Simplify your workflow
+              Find the right POS setup
             </h2>
             <p className="text-lg sm:text-xl text-background/60 mb-12 max-w-xl mx-auto leading-relaxed">
-              Join thousands of teams who trust Cloudly for secure, seamless file management.
+              Start with checkout and reporting. Build on them with inventory, purchasing, multi-location tools, and optional AI.
             </p>
 
             <Button size="lg" className="h-11 px-10 text-base font-semibold bg-background text-foreground hover:bg-background/90 shadow-lg shadow-background/20" asChild>
               <Link to="/signup">
-                Start for free
+                Create an account
               </Link>
             </Button>
             
             <p className="mt-8 text-sm text-background/40">
-              No credit card required · Free 14-day trial · Cancel anytime
+              English and Arabic support · Windows and Android POS
             </p>
           </motion.div>
         </div>

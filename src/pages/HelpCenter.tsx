@@ -36,90 +36,45 @@ const faqCategories = [
     name: "Getting Started",
     icon: FileText,
     questions: [
-      {
-        q: "How do I create an account?",
-        a: "Click 'Get Cloudly free' on our homepage, enter your email and create a password. You'll receive a confirmation email to verify your account.",
-      },
-      {
-        q: "What file types can I upload?",
-        a: "Cloudly supports all common file types including documents (PDF, DOC, DOCX), images (JPG, PNG, GIF), videos (MP4, MOV), and many more. There are no restrictions on file types.",
-      },
-      {
-        q: "How do I upload files?",
-        a: "Simply drag and drop files into your Cloudly dashboard, or click the upload button to select files from your device. You can upload multiple files at once.",
-      },
+      { q: "What devices can I use?", a: "Cevora POS targets Windows tills and Android tablets and handhelds. Printer, scanner, drawer, and payment hardware compatibility depends on the setup." },
+      { q: "Does checkout work offline?", a: "A configured till can record core counter sales locally and sync them when the connection returns. Online refunds, reports, and provider integrations require connectivity." },
+      { q: "Which languages are supported?", a: "The POS includes English and Arabic, including a right-to-left interface and bilingual catalog names." },
     ],
   },
   {
-    name: "Storage & Plans",
+    name: "Plans and Add-ons",
     icon: CreditCard,
     questions: [
-      {
-        q: "How much storage do I get for free?",
-        a: "Our free plan includes 5 GB of storage, which is perfect for personal use and getting started with Cloudly.",
-      },
-      {
-        q: "Can I upgrade my plan at any time?",
-        a: "Yes! You can upgrade to Pro (2 TB) or Business (Unlimited) at any time from your account settings. Changes take effect immediately.",
-      },
-      {
-        q: "What happens if I exceed my storage limit?",
-        a: "You'll receive notifications when approaching your limit. Once reached, you won't be able to upload new files until you upgrade or delete existing files.",
-      },
+      { q: "What is included in the Starter package?", a: "Starter is designed for core counter sales, products and menus, shift reconciliation, and standard reports." },
+      { q: "What can the AI add-on do?", a: "AI Report Builder turns sales questions into reports you can export to Excel. AI Product Images generates catalog images you can preview before saving." },
+      { q: "Can I add inventory or accounting?", a: "Inventory, purchasing, stock transfers, and General Ledger are available through licensed modules. Check the plans page for suggested packages." },
     ],
   },
   {
-    name: "Sharing & Collaboration",
+    name: "Stores and Operations",
     icon: Users,
     questions: [
-      {
-        q: "How do I share files with others?",
-        a: "Select any file, click the share button, and enter the email address of the person you want to share with. You can set view-only or edit permissions.",
-      },
-      {
-        q: "Can I share files with non-Cloudly users?",
-        a: "Yes! You can generate a public link that anyone can use to view or download the file, even without a Cloudly account.",
-      },
-      {
-        q: "How do team folders work?",
-        a: "Pro users get 3 team folders, Business users get unlimited. Team folders allow multiple users to access and collaborate on the same set of files.",
-      },
+      { q: "Can I manage more than one shop?", a: "Yes. Organize tills under stores and branches, scope staff access by location, and use branch and store filters in sales reporting." },
+      { q: "Can I handle orders for business customers?", a: "The back-office workflow supports customer prices, credit terms, standing orders, and production lists by kitchen." },
+      { q: "Can I receive delivery app orders?", a: "The delivery inbox supports enabled providers. Provider activation, store configuration, and POS product mapping are required." },
     ],
   },
   {
-    name: "Security & Privacy",
+    name: "Access and Approvals",
     icon: Shield,
     questions: [
-      {
-        q: "Is my data encrypted?",
-        a: "Yes, all files are encrypted both in transit (TLS 1.3) and at rest (AES-256). Your data security is our top priority.",
-      },
-      {
-        q: "Can I enable two-factor authentication?",
-        a: "Absolutely! Go to Settings > Security to enable 2FA. We support authenticator apps and backup codes for account recovery.",
-      },
-      {
-        q: "Who can access my files?",
-        a: "Only you can access your files unless you explicitly share them. Our team cannot view your files without your permission.",
-      },
+      { q: "Can I give staff different permissions?", a: "Yes. Staff and administrators can be given role-based permissions and access to assigned locations." },
+      { q: "How are refunds and voids approved?", a: "Cashiers can look up a sale and request manager approval. These reversals require an online connection." },
+      { q: "Does Cevora support Saudi e-invoicing?", a: "With the ZATCA module and an onboarded terminal, Cevora supports signed QR receipts, standard invoice clearance, credit notes, and a document register." },
     ],
   },
   {
-    name: "File Management",
+    name: "Stock and Reporting",
     icon: Folder,
     questions: [
-      {
-        q: "How do I recover deleted files?",
-        a: "Deleted files go to Trash and stay there for 30 days. You can restore them anytime during this period from the Trash section.",
-      },
-      {
-        q: "Is there version history?",
-        a: "Yes! Free plans get 7 days of version history, Pro gets 180 days, and Business gets unlimited. Access previous versions from the file details.",
-      },
-      {
-        q: "Can I organize files into folders?",
-        a: "Yes, you can create unlimited folders and subfolders to organize your files however you like.",
-      },
+      { q: "Can sales use up recipe ingredients?", a: "Yes. When Inventory is enabled and a product has a recipe, checkout can deduct its ingredient quantities using the configured units." },
+      { q: "Can I track expiry dates and stock counts?", a: "Yes. Inventory includes batch and expiry tracking, physical counts, and variance review." },
+      { q: "Which reports can I export?", a: "Standard sales reports include daily sales, categories, promotions, and VAT, with CSV or Excel export. Sales Summary has a PDF download." },
     ],
   },
 ];
@@ -127,20 +82,20 @@ const faqCategories = [
 const helpResources = [
   {
     icon: FileText,
-    title: "Documentation",
-    description: "Detailed guides and tutorials",
+    title: "POS setup",
+    description: "Checkout, devices, and connectivity",
     link: "#",
   },
   {
     icon: MessageSquare,
-    title: "Community Forum",
-    description: "Connect with other users",
+    title: "Product questions",
+    description: "Plans, reporting, and add-ons",
     link: "#",
   },
   {
     icon: Mail,
-    title: "Email Support",
-    description: "Get help from our team",
+    title: "Contact form preview",
+    description: "Preview the support form",
     link: "#contact",
   },
 ];
@@ -187,7 +142,7 @@ export default function HelpCenter() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     
-    toast.success("Message sent! We'll get back to you within 24 hours.");
+    toast.success("Form preview complete. No message was sent.");
     setFormData({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(false);
   };
@@ -293,7 +248,7 @@ export default function HelpCenter() {
               Still need help?
             </h2>
             <p className="text-muted-foreground">
-              Send us a message and we'll get back to you within 24 hours.
+              This form is a preview. Submissions are not sent to a support team.
             </p>
           </div>
 
@@ -365,7 +320,7 @@ export default function HelpCenter() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitting ? "Sending..." : "Preview submission"}
             </Button>
           </form>
         </motion.div>
