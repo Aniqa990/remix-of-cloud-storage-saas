@@ -28,15 +28,11 @@ const BentoCard = ({
   className,
   Icon,
   description,
-  href,
-  cta,
 }: {
   name: string;
   className: string;
   Icon: any;
   description: string;
-  href: string;
-  cta: string;
 }) => (
   <div
     key={name}
@@ -58,11 +54,6 @@ const BentoCard = ({
       </h3>
       <p className="max-w-lg text-muted-foreground text-sm">{description}</p>
       <div className="mt-4 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-        <Button variant="link" asChild size="sm" className="p-0 h-auto no-underline hover:no-underline">
-          <Link to={href}>
-            {cta}
-          </Link>
-        </Button>
       </div>
     </div>
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-muted/10" />

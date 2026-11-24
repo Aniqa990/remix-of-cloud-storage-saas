@@ -86,46 +86,7 @@ export default function Webinar() {
                 <span className="text-sm font-medium text-foreground">Product overview</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                {webinarDetails.title}
-              </h1>
-
-              <p className="text-lg text-muted-foreground mb-8">
-                See how Cevora POS handles checkout, cash reconciliation, inventory, and reporting for shops, cafés, and bakeries.
-              </p>
-
-              {/* Event Info Cards */}
-              <div className="grid sm:grid-cols-2 gap-4 mb-10">
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Date</p>
-                    <p className="font-medium text-foreground">{webinarDetails.date}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
-                  <Clock className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Time</p>
-                    <p className="font-medium text-foreground">{webinarDetails.time}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
-                  <Video className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Duration</p>
-                    <p className="font-medium text-foreground">{webinarDetails.duration}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
-                  <Users className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Availability</p>
-                    <p className="font-medium text-foreground">{webinarDetails.spots}</p>
-                  </div>
-                </div>
-              </div>
-
+              
               {/* What You'll Learn */}
               <div>
                 <h2 className="text-xl font-semibold text-foreground mb-4">What you'll learn</h2>

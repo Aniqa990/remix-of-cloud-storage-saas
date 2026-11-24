@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Feature197 } from "@/components/ui/accordion-feature-section";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Testimonials } from "@/components/ui/testimonials-columns";
 import checkout from "@/assets/cevora-terminal.png";
 import dashboard from "@/assets/cevora-dashboard.png";
@@ -54,6 +55,16 @@ const accordionFeatures = [{
   image: aiReport,
   description: "Use the optional AI Report Builder to ask a question, filter by date and location, and export the results to Excel."
 }];
+const workspaceScreenshots = [
+  { src: dashboard, title: "Operations dashboard" },
+  { src: transactions, title: "Transaction history" },
+  { src: products, title: "Product catalog" },
+  { src: promotions, title: "Promotion setup" },
+  { src: stock, title: "Stock levels" },
+  { src: standardReports, title: "Standard reports" },
+  { src: stores, title: "Store management" },
+  { src: journal, title: "General Ledger journal voucher details" },
+];
 const moduleHighlights = [{
   text: "Organize products by category, add photos and barcodes, and build store menus with standard items and combos.",
   image: products,
@@ -104,36 +115,36 @@ const bentoFeatures = [{
   Icon: FolderOpen,
   name: "Offline Checkout",
   description: "Scan items, hold orders, split payments, and keep ringing up core counter sales during an internet outage. Sales sync when the connection returns.",
-  href: "/signup",
-  cta: "Create an account",
+  
+  
   className: "lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2"
 }, {
   Icon: Share2,
   name: "Shifts and Cash",
   description: "Record cash movements and reconcile the drawer at shift close.",
-  href: "/signup",
-  cta: "Create an account",
+  
+  
   className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
 }, {
   Icon: Users,
   name: "Products and Menus",
   description: "Build store menus with product photos, barcodes, and combos.",
-  href: "/signup",
-  cta: "Create an account",
+  
+  
   className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3"
 }, {
   Icon: Lock,
   name: "Staff Permissions",
   description: "Set role-based access and require manager approval for returns and voids.",
-  href: "/signup",
-  cta: "Create an account",
+  
+  
   className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2"
 }, {
   Icon: Zap,
   name: "Sales Reports",
   description: "Review sales by store, shift, product, or category.",
-  href: "/signup",
-  cta: "Create an account",
+  
+  
   className: "lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-3"
 }];
 export default function Landing() {
@@ -232,7 +243,7 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Logo Cloud */}
+          {/* Workspace screenshots */}
           <motion.div initial={{
           opacity: 0,
           y: 20
@@ -245,56 +256,38 @@ export default function Landing() {
           duration: 0.6,
           delay: 0.2
         }} className="mx-auto mt-20 mb-8 max-w-5xl px-6">
-            <div className="flex flex-col items-center">
-              <p className="text-muted-foreground text-sm font-medium mb-8">
-                A look at the Cevora POS workspace
-              </p>
-              <div className="flex items-center justify-center flex-wrap gap-x-12 gap-y-8">
-                {[{
-                src: dashboard,
-                alt: "Operations dashboard",
-                height: "h-12"
-              }, {
-                src: transactions,
-                alt: "Transaction history",
-                height: "h-12"
-              }, {
-                src: products,
-                alt: "Product catalog",
-                height: "h-12"
-              }, {
-                src: promotions,
-                alt: "Promotion setup",
-                height: "h-12"
-              }, {
-                src: stock,
-                alt: "Stock levels",
-                height: "h-12"
-              }, {
-                src: standardReports,
-                alt: "Standard reports",
-                height: "h-12"
-              }, {
-                src: stores,
-                alt: "Store management",
-                height: "h-12"
-              }].map((logo, index) => <motion.img key={logo.alt} src={logo.src} alt={logo.alt} className={`${logo.height} w-auto opacity-60 hover:opacity-80 transition-opacity grayscale`} initial={{
-                opacity: 0,
-                y: 10
-              }} whileInView={{
-                opacity: 0.6,
-                y: 0
-              }} viewport={{
-                once: true
-              }} transition={{
-                duration: 0.4,
-                delay: 0.3 + index * 0.1
-              }} whileHover={{
-                opacity: 0.8,
-                scale: 1.05
-              }} />)}
+            <h2 id="workspace-gallery-title" className="mb-8 text-center text-xl font-semibold text-foreground sm:text-2xl">
+              A look at the Cevora POS workspace
+            </h2>
+            <Carousel aria-labelledby="workspace-gallery-title" opts={{ loop: true }}>
+              <CarouselContent className="touch-pan-y">
+                {workspaceScreenshots.map(({ src, title }) => (
+                  <CarouselItem key={src}>
+                    <figure>
+                      <div className="relative aspect-video overflow-hidden rounded-xl border border-border/60 bg-muted/40">
+                        <img
+                          src={src}
+                          alt={`${title} screenshot`}
+                          loading="lazy"
+                          className="absolute inset-0 h-full w-full object-contain"
+                        />
+                      </div>
+                      <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+                        {title}
+                      </figcaption>
+                    </figure>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="mt-4 flex justify-center gap-3">
+                <CarouselPrevious size="default" className="static h-10 w-auto translate-y-0" aria-label="Previous screenshot">
+                  Previous
+                </CarouselPrevious>
+                <CarouselNext size="default" className="static h-10 w-auto translate-y-0" aria-label="Next screenshot">
+                  Next
+                </CarouselNext>
               </div>
-            </div>
+            </Carousel>
           </motion.div>
         </div>
       </section>

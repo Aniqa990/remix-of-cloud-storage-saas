@@ -23,8 +23,8 @@ interface Feature197Props {
 }
 
 const Feature197 = ({ features, title, description }: Feature197Props) => {
-  const [activeTabId, setActiveTabId] = useState(1);
-  const [activeImage, setActiveImage] = useState(features[0]?.image || "");
+  const [activeTab, setActiveTab] = useState(features[0] ? `item-${features[0].id}` : "");
+  const activeFeature = features.find((feature) => `item-${feature.id}` === activeTab);
 
   return (
     <section className="py-24 lg:py-32">
@@ -48,24 +48,14 @@ const Feature197 = ({ features, title, description }: Feature197Props) => {
             <div>
               <Accordion
                 type="single"
-                value={`item-${activeTabId}`}
-                onValueChange={(value) => {
-                  if (value) {
-                    const id = parseInt(value.replace("item-", ""));
-                    setActiveTabId(id);
-                    const feature = features.find((f) => f.id === id);
-                    if (feature) setActiveImage(feature.image);
-                  }
-                }}
+                collapsible
+                value={activeTab}
+                onValueChange={setActiveTab}
                 className="w-full"
               >
                 {features.map((tab) => (
                   <AccordionItem key={tab.id} value={`item-${tab.id}`} className="border-b border-border/50">
                     <AccordionTrigger
-                      onClick={() => {
-                        setActiveImage(tab.image);
-                        setActiveTabId(tab.id);
-                      }}
                       className="cursor-pointer py-5 !no-underline transition hover:no-underline"
                     >
                       <span className="text-base font-medium text-foreground">
@@ -80,7 +70,7 @@ const Feature197 = ({ features, title, description }: Feature197Props) => {
                         <img
                           src={tab.image}
                           alt={tab.title}
-                          className="aspect-video w-full rounded-lg object-cover"
+                          className="block h-auto w-full rounded-lg"
                         />
                       </div>
                     </AccordionContent>
@@ -89,12 +79,14 @@ const Feature197 = ({ features, title, description }: Feature197Props) => {
               </Accordion>
             </div>
 
-            <div className="hidden lg:block">
-              <img
-                src={activeImage}
-                alt="Feature preview"
-                className="aspect-video w-full rounded-lg object-cover border border-border/30"
-              />
+            <div className="relative hidden aspect-video overflow-hidden rounded-lg lg:block">
+              {activeFeature && (
+                <img
+                  src={activeFeature.image}
+                  alt={activeFeature.title}
+                  className="absolute inset-0 h-full w-full rounded-lg border border-border/30 bg-muted/30 object-contain"
+                />
+              )}
             </div>
           </div>
         </div>

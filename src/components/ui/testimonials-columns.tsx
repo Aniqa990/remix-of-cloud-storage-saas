@@ -40,7 +40,7 @@ export const TestimonialsColumn = (props: {
                   <img
                     src={image}
                     alt={name}
-                    className="h-10 w-10 rounded-full object-cover"
+                    className="h-10 w-16 shrink-0 rounded-md border border-border/50 bg-muted/40 object-contain"
                   />
                   <div>
                     <p className="font-medium text-foreground">{name}</p>
