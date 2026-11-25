@@ -1,5 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { CreditCard, FileText, Folder, HelpCircle, Mail, MessageSquare, Shield, Users } from "lucide-react";
+import { FileText, Folder, HelpCircle, Mail, Shield, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,66 +12,55 @@ import {
 
 const faqCategories = [
   {
-    name: "Getting Started",
     icon: FileText,
     id: "setup",
+    title: "faq_setup_title",
     questions: [
-      { q: "What hardware can we use?", a: "Discuss Windows or Android POS devices with Ceevora. Share your payment terminal, printer, cash drawer or scanner models to confirm compatibility." },
-      { q: "Does checkout work offline?", a: "A configured till can record core counter sales locally and sync them when the connection returns. Online refunds, reports, and provider integrations require connectivity." },
-      { q: "Does Ceevora POS support Arabic?", a: "Yes. Ceevora POS supports Arabic and English interfaces, including a right-to-left interface and bilingual catalog names." },
+      "faq_setup_1",
+      "faq_setup_2",
+      "faq_setup_3",
     ],
   },
   {
-    name: "Planning your rollout",
-    icon: CreditCard,
-    id: "rollout",
-    questions: [
-      { q: "Can we choose cloud or on-premises deployment?", a: "Discuss cloud subscription or on-premises deployment with Ceevora. Hosting, licences, training and support are scoped for each rollout." },
-      { q: "How do we get a quote?", a: "Share your number of shops, POS terminals, management users and required modules. Ceevora can scope a rollout and quote for your setup." },
-      { q: "What can the AI add-on do?", a: "AI Report Builder turns sales questions into reports you can export to Excel. AI Product Images generates catalog images you can preview before saving." },
-      { q: "Can I add inventory or accounting?", a: "Inventory, purchasing, stock transfers, and General Ledger are available through licensed modules. Contact Ceevora to discuss which modules fit your setup." },
-    ],
-  },
-  {
-    name: "Stores and Operations",
     icon: Users,
     id: "operations",
+    title: "faq_operations_title",
     questions: [
-      { q: "Can each branch have its own menu?", a: "Yes. Configure menus by shop, track stock by location and compare sales across locations in the management console." },
-      { q: "Can I manage more than one shop?", a: "Yes. Organize tills under stores and branches, scope staff access by location, and use branch and store filters in sales reporting." },
-      { q: "Can I handle orders for business customers?", a: "The back-office workflow supports customer prices, credit terms, standing orders, and production lists by kitchen." },
-      { q: "Can I receive delivery app orders?", a: "The delivery inbox supports enabled providers. Provider activation, store configuration, and POS product mapping are required." },
+      "faq_operations_1",
+      "faq_operations_2",
+      "faq_operations_3",
+      "faq_operations_4",
     ],
   },
   {
-    name: "Access and Approvals",
     icon: Shield,
     id: "permissions",
+    title: "faq_permissions_title",
     questions: [
-      { q: "Can I give staff different permissions?", a: "Yes. Staff and administrators can be given role-based permissions and access to assigned locations." },
-      { q: "How are refunds and voids approved?", a: "Cashiers can look up a sale and request manager approval. These reversals require an online connection." },
-      { q: "How do we plan for Saudi e-invoicing?", a: "Share your ZATCA requirements with Ceevora to confirm the supported configuration and onboarding scope for your business." },
+      "faq_permissions_1",
+      "faq_permissions_2",
+      "faq_permissions_3",
     ],
   },
   {
-    name: "Stock and Reporting",
     icon: Folder,
     id: "reporting",
+    title: "faq_reporting_title",
     questions: [
-      { q: "Can sales use up recipe ingredients?", a: "Yes. When Inventory is enabled and a product has a recipe, checkout can deduct its ingredient quantities using the configured units." },
-      { q: "Can I track expiry dates and stock counts?", a: "Yes. Inventory includes batch and expiry tracking, physical counts, and variance review." },
-      { q: "Which reports can I export?", a: "Standard sales reports include daily sales, categories, promotions, and VAT, with CSV or Excel export. Sales Summary has a PDF download." },
+      "faq_reporting_1",
+      "faq_reporting_2",
+      "faq_reporting_3",
     ],
   },
 ];
 
 const helpResources = [
-  { icon: FileText, title: "POS setup", description: "Checkout, devices and connectivity", link: "/help#setup" },
-  { icon: MessageSquare, title: "Planning your rollout", description: "Deployment, quotes and add-ons", link: "/help#rollout" },
-  { icon: Mail, title: "Contact us", description: "Talk to Ceevora about a demo", link: "/contact" },
+  { icon: FileText, title: "helpResource0Title", description: "helpResource0Description", link: "/help#setup" },
+  { icon: Mail, title: "helpResource2Title", description: "helpResource2Description", link: "/contact" },
 ];
 
 export default function HelpCenter() {
+  const { t, i18n } = useTranslation();
   return (
     <div className="py-20 lg:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,10 +74,10 @@ export default function HelpCenter() {
             <HelpCircle className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            Help
+            {t("marketing.help")}
           </h1>
           <p className="text-lg text-muted-foreground">
-            Find answers to common questions about using and rolling out Ceevora POS.
+            {t("marketing.helpIntro")}
           </p>
         </motion.div>
 
@@ -96,7 +86,7 @@ export default function HelpCenter() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20"
+          className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-20"
         >
           {helpResources.map((resource) => (
             <Link
@@ -107,9 +97,9 @@ export default function HelpCenter() {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                 <resource.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-semibold text-foreground mb-1">{resource.title}</h3>
+              <h3 className="font-semibold text-foreground mb-1">{t(`marketing.${resource.title}`)}</h3>
               <p className="text-sm text-muted-foreground text-center">
-                {resource.description}
+                {t(`marketing.${resource.description}`)}
               </p>
             </Link>
           ))}
@@ -123,7 +113,7 @@ export default function HelpCenter() {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-2xl font-bold text-foreground text-center mb-8">
-            Frequently Asked Questions
+            {t("marketing.faqHeading")}
           </h2>
 
           <div className="space-y-6">
@@ -135,22 +125,22 @@ export default function HelpCenter() {
               >
                 <div className="flex items-center gap-3 px-6 py-4 bg-muted/50 border-b border-border">
                   <category.icon className="w-5 h-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">{category.name}</h3>
+                  <h3 className="font-semibold text-foreground">{t(`marketing.${category.title}`)}</h3>
                 </div>
-                <Accordion type="single" collapsible className="px-2">
+                <Accordion type="single" dir={i18n.dir()} collapsible className="px-2">
                   {category.questions.map((item) => (
                     <AccordionItem
-                      key={item.q}
-                      value={item.q}
+                      key={item}
+                      value={item}
                       className="border-b-0"
                     >
-                      <AccordionTrigger className="px-4 py-4 text-left hover:no-underline hover:bg-muted/30 rounded-lg">
+                      <AccordionTrigger className="px-4 py-4 text-start hover:no-underline hover:bg-muted/30 rounded-lg">
                         <span className="text-sm font-medium text-foreground">
-                          {item.q}
+                          {t(`marketing.${item}_question`)}
                         </span>
                       </AccordionTrigger>
                       <AccordionContent className="px-4 pb-4 text-sm text-muted-foreground">
-                        {item.a}
+                        {t(`marketing.${item}_answer`)}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -162,10 +152,10 @@ export default function HelpCenter() {
 
         <div className="mx-auto mt-12 max-w-2xl text-center">
           <p className="mb-4 text-muted-foreground">
-            For product or implementation questions, email{" "}
-            <a className="font-medium text-foreground underline" href="mailto:info.ceevora@gmail.com">info.ceevora@gmail.com</a>.
+            {t("marketing.helpEmail")}{" "}
+            <a className="font-medium text-foreground underline" href="mailto:info@ceevora.com"><bdi>info@ceevora.com</bdi></a>.
           </p>
-          <Button asChild><Link to="/contact">Contact us</Link></Button>
+          <Button asChild><Link to="/contact">{t("marketing.contact")}</Link></Button>
         </div>
       </div>
     </div>

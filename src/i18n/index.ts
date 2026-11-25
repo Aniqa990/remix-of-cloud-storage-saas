@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 import en from "./locales/en.json";
 import es from "./locales/es.json";
 import fr from "./locales/fr.json";
+import ar from "./locales/ar.json";
 
 export const languages = [
   { code: "en", name: "English", nativeName: "English" },
@@ -23,6 +24,7 @@ i18n
       en: { translation: en },
       es: { translation: es },
       fr: { translation: fr },
+      ar: { translation: ar },
     },
     lng: savedLanguage,
     fallbackLng: "en",

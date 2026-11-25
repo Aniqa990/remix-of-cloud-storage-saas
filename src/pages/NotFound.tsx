@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import { usePublicDocumentLanguage } from "@/components/layout/usePublicDocumentLanguage";
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
@@ -6,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
 const NotFound = () => {
+  const { t } = useTranslation();
+  usePublicDocumentLanguage();
   const location = useLocation();
 
   useEffect(() => {
@@ -19,15 +23,15 @@ const NotFound = () => {
         <div className="text-center px-6">
           <p className="text-sm font-medium text-muted-foreground mb-3">404</p>
           <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4">
-            Page not found
+            {t("marketing.notFound")}
           </h1>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Sorry, we couldn't find the page you're looking for.
+            {t("marketing.notFoundBody")}
           </p>
           <Button asChild>
             <Link to="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to home
+              <ArrowLeft className="w-4 h-4 me-2 rtl:rotate-180" />
+              {t("marketing.backHome")}
             </Link>
           </Button>
         </div>

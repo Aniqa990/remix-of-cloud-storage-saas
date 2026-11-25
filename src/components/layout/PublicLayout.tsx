@@ -1,8 +1,11 @@
+import { usePublicDocumentLanguage } from "@/components/layout/usePublicDocumentLanguage";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+
 export function PublicLayout() {
+  usePublicDocumentLanguage();
   const { hash, key } = useLocation();
 
   useEffect(() => {
@@ -13,11 +16,13 @@ export function PublicLayout() {
     }
   }, [hash, key]);
 
-  return <div className="min-h-screen flex flex-col">
+  return (
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
-    </div>;
+    </div>
+  );
 }

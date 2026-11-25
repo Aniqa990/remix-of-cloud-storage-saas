@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -5,11 +6,13 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Product", href: "/#workspace" },
-  { name: "Help", href: "/help" },
+  { name: "product", href: "/#workspace" },
+  { name: "help", href: "/help" },
 ];
 
 export function Navbar() {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage === "ar" ? "ar" : "en";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -36,22 +39,32 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation - Left aligned */}
-          <div className="hidden md:flex items-center gap-1 ml-8 flex-1">
+          <div className="hidden md:flex items-center gap-1 ms-8 flex-1">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={t(`marketing.${link.name}`)}
                 to={link.href}
                 className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                {link.name}
+                {t(`marketing.${link.name}`)}
               </Link>
             ))}
           </div>
 
+          <select
+            aria-label={t("marketing.language")}
+            value={language}
+            onChange={(event) => void i18n.changeLanguage(event.target.value)}
+            className="ms-auto rounded-md border border-border bg-background px-2 py-1.5 text-sm text-foreground md:me-3"
+          >
+            <option value="en" lang="en">English</option>
+            <option value="ar" lang="ar">العربية</option>
+          </select>
+
           {/* Desktop Contact */}
           <div className="hidden md:flex items-center gap-3">
-            <Button size="sm" className="bg-black hover:bg-black/90" asChild>
-              <Link to="/contact">Contact us</Link>
+            <Button size="sm" className="bg-black text-white hover:bg-black/90" asChild>
+              <Link to="/contact">{t("marketing.contact")}</Link>
             </Button>
           </div>
 
@@ -60,7 +73,7 @@ export function Navbar() {
             variant="ghost"
             size="icon"
             className="md:hidden"
-            aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-label={isMenuOpen ? t("marketing.closeNavigation") : t("marketing.openNavigation")}
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -81,17 +94,17 @@ export function Navbar() {
             <div className="container mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={t(`marketing.${link.name}`)}
                   to={link.href}
                   className="block py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {link.name}
+                  {t(`marketing.${link.name}`)}
                 </Link>
               ))}
               <div className="pt-4 mt-4 border-t border-border space-y-2">
-                <Button className="w-full bg-black hover:bg-black/90" asChild>
-                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact us</Link>
+                <Button className="w-full bg-black text-white hover:bg-black/90" asChild>
+                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>{t("marketing.contact")}</Link>
                 </Button>
               </div>
             </div>
