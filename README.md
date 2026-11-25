@@ -1,5 +1,7 @@
 # Remix of Cloud Storage SaaS
 
+The contact form's country, calling-code, and city data is adapted from the [GeoNames gazetteer](https://www.geonames.org/export/) under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
+
 Full SaaS Product Specification Prompt (Dropbox-like)
 
 

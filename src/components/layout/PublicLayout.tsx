@@ -17,7 +17,7 @@ export function PublicLayout() {
   }, [hash, key]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="ceevora-public min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
       <main className="flex-1">
         <Outlet />

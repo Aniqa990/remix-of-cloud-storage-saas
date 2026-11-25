@@ -142,6 +142,27 @@
 }
 
 @layer components {
+  .ceevora-public {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 201.18 51.52% 12.94%;
+    --card: var(--background);
+    --card-foreground: var(--foreground);
+    --primary: 171.6 100% 19.61%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 160 33.33% 94.71%;
+    --muted-foreground: 193.33 23.08% 30.59%;
+    --accent: var(--muted);
+    --accent-foreground: var(--foreground);
+    --border: 172.94 20.48% 83.73%;
+    --input: 169.66 17.58% 67.65%;
+    --ring: var(--primary);
+  }
+
+  .ceevora-hero {
+    background: linear-gradient(150deg, #e2f3ea, #edf5fa 52%, #fff 95%);
+  }
+
   /* Card Variants */
   .card-elevated {
     @apply bg-card rounded-xl border border-border;

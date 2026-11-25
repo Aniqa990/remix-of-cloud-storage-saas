@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/carousel";
 
 export type Screenshot = {
+  id: string;
   src: string;
   title: string;
   description?: string;
@@ -54,7 +55,7 @@ export function WorkspaceGallery({ screenshots, onZoom }: {
         {screenshots.map((item, index) => {
           const active = index === selected;
           return (
-            <CarouselItem key={item.src} className="!basis-[calc(100%-3rem)] !p-0 max-w-[976px]">
+            <CarouselItem key={item.id} className="!basis-[calc(100%-3rem)] !p-0 max-w-[976px]">
               <button
                 type="button"
                 tabIndex={active ? 0 : -1}
@@ -73,16 +74,16 @@ export function WorkspaceGallery({ screenshots, onZoom }: {
           );
         })}
       </CarouselContent>
-      <div className="mx-auto mt-3 min-h-14 max-w-3xl px-6 text-center text-sm text-muted-foreground" aria-live="polite">
+      <div className="mx-auto mt-1.5 max-w-3xl px-6 text-center text-sm text-muted-foreground" aria-live="polite">
         <strong className="block font-medium text-foreground">{screenshot.title}</strong>
         {screenshot.description && <p className="mt-1">{screenshot.description}</p>}
       </div>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4">
+      <div className="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4">
         <CarouselPrevious size="default" className="static h-10 w-auto translate-y-0">{t("marketing.previous")}</CarouselPrevious>
         <div className="flex items-center">
           {screenshots.map((item, index) => (
             <button
-              key={item.src}
+              key={item.id}
               type="button"
               aria-label={t("marketing.goToScreenshot", { title: item.title })}
               aria-current={index === selected ? "true" : undefined}

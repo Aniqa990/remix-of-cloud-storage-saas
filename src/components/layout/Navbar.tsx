@@ -28,8 +28,8 @@ export function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? "bg-background/95 backdrop-blur-sm border-b border-border" 
-        : "bg-transparent border-b border-transparent"
+        ? "bg-background/95 backdrop-blur-sm border-b border-border"
+        : "bg-background border-b border-border"
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -63,7 +63,7 @@ export function Navbar() {
 
           {/* Desktop Contact */}
           <div className="hidden md:flex items-center gap-3">
-            <Button size="sm" className="bg-black text-white hover:bg-black/90" asChild>
+            <Button size="sm" asChild>
               <Link to="/contact">{t("marketing.contact")}</Link>
             </Button>
           </div>
@@ -103,7 +103,7 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="pt-4 mt-4 border-t border-border space-y-2">
-                <Button className="w-full bg-black text-white hover:bg-black/90" asChild>
+                <Button className="w-full" asChild>
                   <Link to="/contact" onClick={() => setIsMenuOpen(false)}>{t("marketing.contact")}</Link>
                 </Button>
               </div>
