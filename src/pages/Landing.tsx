@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronRight, FolderOpen, Lock, Share2, Users, Zap } from "lucide-react";
+import { FolderOpen, Lock, Share2, Users, WifiOff, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Feature197 } from "@/components/ui/accordion-feature-section";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Testimonials } from "@/components/ui/testimonials-columns";
 import checkout from "@/assets/cevora-terminal.png";
 import dashboard from "@/assets/cevora-dashboard.png";
 import stock from "@/assets/cevora-stock.png";
-import aiReport from "@/assets/cevora-AI_report.png";
+import aiReport from "@/assets/cevora_AI-report.png";
 import promotions from "@/assets/cevora_promotions.png";
 import products from "@/assets/cevora-products.png";
 import stores from "@/assets/cevora-stores.png";
 import standardReports from "@/assets/cevora-static_report.png";
-import integrations from "@/assets/cevora-integrations.png";
-import customerOrders from "@/assets/cevora-business_customers.png";
 import journal from "@/assets/cevora-jv_details.png";
 import transactions from "@/assets/cevora-transaction_history.png";
 import heroCloudsBg from "@/assets/hero-clouds-bg.png";
@@ -62,65 +60,34 @@ const accordionFeatures = [{
   description: "Map payments and products to ledger accounts, then generate journal vouchers for review and posting."
 }];
 const workspaceScreenshots = [
-  { src: dashboard, title: "Operations dashboard" },
+  { src: dashboard, fullSize: "/workspace/management-console.png", title: "Management console", description: "Review net sales, order counts, average order value and hourly activity across shops." },
   { src: transactions, title: "Transaction history" },
   { src: products, title: "Product catalog" },
   { src: promotions, title: "Promotion setup" },
-  { src: stock, title: "Stock levels" },
+  { src: stock, fullSize: "/workspace/inventory.png", title: "Inventory workspace", description: "Review stock by shop and track ingredients, packaging and finished goods." },
   { src: standardReports, title: "Standard reports" },
   { src: stores, title: "Store management" },
-  { src: journal, title: "General Ledger journal voucher details" },
+  { src: journal, fullSize: "/workspace/general-ledger.png", title: "General Ledger", description: "Review daily journal vouchers by store and trace totals to source receipts." },
 ];
-const moduleHighlights = [{
-  text: "Organize products by category, add photos and barcodes, and build store menus with standard items and combos.",
-  image: products,
-  name: "Products and menus",
-  role: "Catalog"
-}, {
-  text: "Track batches and expiry dates, review stock counts, and deduct ingredients as recipe items sell.",
-  image: stock,
-  name: "Stock and recipes",
-  role: "Inventory"
-}, {
-  text: "Schedule discounts and bundles, target branches or products, and control how offers combine.",
-  image: promotions,
-  name: "Offers and coupons",
-  role: "Promotions"
-}, {
-  text: "Manage branches, stores, and tills, with access scoped to each manager’s assigned locations.",
-  image: stores,
-  name: "Store management",
-  role: "Multi-location"
-}, {
-  text: "Export daily sales, category, promotions, and VAT reports to CSV or Excel.",
-  image: standardReports,
-  name: "Standard sales reports",
-  role: "Reporting"
-}, {
-  text: "Ask about sales, filter by dates and locations, and download the report in Excel.",
-  image: aiReport,
-  name: "Questions in plain language",
-  role: "AI Report Builder"
-}, {
-  text: "Review orders, map provider items to your catalog, and accept or reject incoming orders from enabled integrations.",
-  image: integrations,
-  name: "Provider order inbox",
-  role: "Delivery"
-}, {
-  text: "Set customer prices and credit terms, reuse standing orders, and prepare production lists by kitchen.",
-  image: customerOrders,
-  name: "Business accounts",
-  role: "Customer orders"
-}, {
-  text: "Map payments and products to accounts, then generate, review, and post journal vouchers.",
-  image: journal,
-  name: "Journal vouchers",
-  role: "General ledger"
-}];
+
+const modules = [
+  { title: "Point of Sale & Payments", description: "Scan barcodes, hold orders, apply discounts, process returns and split payments. Accept cash and supported mada, Visa, Mastercard and digital wallet payments." },
+  { title: "Business Day, Shift & Cash Management", description: "Open the business date, check in cashiers, record drawer cash in and out, and reconcile shortages and overages at shift close." },
+  { title: "Product Catalog, Pricing & Promotions", description: "Manage product photos, categories, units of measure, barcodes and prices. Build shop-specific menus, combos and offers." },
+  { title: "Purchase Orders & Inventory", description: "Manage purchasing and receipts. Track raw materials, packaging and finished goods. Review stock counts, variances and adjustments." },
+  { title: "Central Kitchen & Store Transfers", description: "Receive finished goods from a central kitchen, transfer stock between shops and track waste, damage and leftovers." },
+  { title: "Customers, Credit Orders & Loyalty", description: "Use customer-specific prices and credit terms for dealers, schools and cafés. Ask about loyalty options and settlement workflows for your rollout." },
+  { title: "Accounting & General Ledger", description: "Map payment methods and business events to the chart of accounts. Generate store-level daily journal vouchers and drill down to receipts." },
+  { title: "Management Console & Advanced Reports", description: "Compare sales by shop, hour, terminal, cashier, product and category. Review payments, discounts, returns and voids, and export supported reports." },
+  { title: "Multi-Branch & Terminal Management", description: "Manage locations, register terminals and assign role-based access. Configure supervisor approvals for actions such as stock adjustments." },
+  { title: "AI Report Builder", description: "Ask plain-language questions about sales with the optional reporting module. Filter by date and location and export supported results." },
+  { title: "Delivery & External Integrations", description: "Discuss delivery-provider workflows, payment terminals, receipt printers, cash drawers, barcode scanners, scales and external ERP integration." },
+];
+
 const bentoFeatures = [{
   Icon: FolderOpen,
-  name: "Offline Checkout",
-  description: "Scan items, hold orders, split payments, and keep ringing up core counter sales during an internet outage. Sales sync when the connection returns.",
+  name: "Point of Sale",
+  description: "Scan barcodes, hold orders, apply discounts, process returns and split payments.",
   
   
   className: "lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2"
@@ -199,37 +166,27 @@ export default function Landing() {
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
               <AnimatedGroup variants={transitionVariants}>
-                {/* Announcement badge */}
-                <Link to="/webinar" className="group mx-auto flex w-fit items-center gap-2.5 rounded-full border border-border bg-muted dark:bg-muted/50 px-4 py-1.5 transition-all duration-300 hover:bg-accent dark:hover:bg-muted hover:shadow-[0_0_20px_-5px_hsl(var(--primary)/0.3)]">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <span className="text-primary font-medium text-sm">Product walkthrough</span>
-                  <ChevronRight className="size-4 text-primary" />
-                </Link>
-
-                {/* Main Headline */}
+                <p className="mx-auto w-fit rounded-full border border-border bg-muted px-4 py-1.5 text-sm font-medium text-primary dark:bg-muted/50">
+                  Point of sale for Saudi Arabia
+                </p>
                 <h1 className="mt-8 text-balance text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  <span className="block">Point of sale for</span>
-                  <span className="block mt-2">cafés, bakeries, and shops</span>
+                  <span className="block">Run the counter.</span>
+                  <span className="block mt-2">See the whole business.</span>
                 </h1>
-
-                {/* Description */}
                 <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl">
-                  Ring up sales, manage stock, and see how each store is doing. Cevora POS supports English and Arabic and keeps core checkout running when the internet drops.
+                  Connect checkout, inventory, reporting and accounting across your shops. Built for caf&eacute;s, donut shops, bakeries, restaurants and specialty retailers.
                 </p>
 
                 {/* CTA Buttons */}
                 <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Button size="lg" className="h-11 px-6 text-base bg-black hover:bg-black/90" asChild>
-                    <Link to="/signup">
-                      <span className="text-nowrap">Create an account</span>
+                    <Link to="/contact">
+                      <span className="text-nowrap">Contact us</span>
                     </Link>
                   </Button>
                   <Button size="lg" variant="ghost" className="h-11 px-6 text-base bg-muted hover:bg-muted/80 text-foreground" asChild>
-                    <Link to="/pricing">
-                      <span className="text-nowrap">Compare plans</span>
+                    <Link to="/#workspace">
+                      <span className="text-nowrap">Tour the product</span>
                     </Link>
                   </Button>
                 </div>
@@ -247,21 +204,22 @@ export default function Landing() {
               },
               ...transitionVariants
             }}>
-                {/* Exact uploaded screenshot */}
                 <div className="relative mx-auto mt-16 sm:mt-20 w-full max-w-5xl md:max-w-[92vw] lg:max-w-6xl xl:max-w-7xl">
-                  <img
+                  <a href="/cevora-checkout.png" target="_blank" rel="noreferrer" className="block" aria-label="Open the full-size checkout screenshot (opens in a new tab)">
+                    <img
                     src={checkout}
-                    alt="Cevora checkout showing product categories, a cart, and an applied promotion"
+                    alt="Ceevora POS checkout showing product categories, a cart, and an applied promotion"
                     loading="lazy"
                     className="h-auto w-full rounded-2xl border border-border/60 shadow-2xl shadow-foreground/5"
-                  />
+                    />
+                  </a>
                 </div>
               </AnimatedGroup>
             </div>
           </div>
 
           {/* Workspace screenshots */}
-          <motion.div initial={{
+          <motion.div id="workspace" initial={{
           opacity: 0,
           y: 20
         }} whileInView={{
@@ -272,25 +230,29 @@ export default function Landing() {
         }} transition={{
           duration: 0.6,
           delay: 0.2
-        }} className="mx-auto mt-20 mb-8 max-w-5xl px-6">
-            <h2 id="workspace-gallery-title" className="mb-8 text-center text-xl font-semibold text-foreground sm:text-2xl">
-              A look at the Cevora POS workspace
+        }} className="mx-auto mt-20 mb-8 max-w-5xl scroll-mt-24 px-6">
+            <h2 id="workspace-gallery-title" className="mb-3 text-center text-xl font-semibold text-foreground sm:text-2xl">
+              Explore the Ceevora workspace
             </h2>
+            <p className="mb-8 text-center text-muted-foreground">
+              See what cashiers, store managers and finance teams use each day. Select a screenshot for the full-size view.
+            </p>
             <Carousel aria-labelledby="workspace-gallery-title" opts={{ loop: true }} setApi={setCarouselApi}>
               <CarouselContent className="touch-pan-y">
-                {workspaceScreenshots.map(({ src, title }) => (
+                {workspaceScreenshots.map(({ src, fullSize, title, description }) => (
                   <CarouselItem key={src}>
                     <figure>
-                      <div className="relative aspect-video overflow-hidden rounded-xl border border-border/60 bg-muted/40">
+                      <a href={fullSize ?? src} target="_blank" rel="noreferrer" aria-label={`Open the full-size ${title} screenshot (opens in a new tab)`} className="relative block aspect-video overflow-hidden rounded-xl border border-border/60 bg-muted/40">
                         <img
                           src={src}
                           alt={`${title} screenshot`}
                           loading="lazy"
                           className="absolute inset-0 h-full w-full object-contain"
                         />
-                      </div>
+                      </a>
                       <figcaption className="mt-3 text-center text-sm text-muted-foreground">
-                        {title}
+                        <strong className="block font-medium text-foreground">{title}</strong>
+                        {description && <p className="mt-1">{description}</p>}
                       </figcaption>
                     </figure>
                   </CarouselItem>
@@ -340,20 +302,51 @@ export default function Landing() {
             duration: 0.6,
             delay: 0.2
           }}>
-              <BentoGrid className="">
+              <BentoGrid>
                 {bentoFeatures.map(feature => <BentoCard key={feature.name} {...feature} />)}
               </BentoGrid>
+              <article id="offline" className="relative mt-4 grid scroll-mt-24 gap-6 rounded-xl border border-border/50 bg-card p-6 sm:p-8 lg:grid-cols-[2fr_1fr] lg:items-center">
+                <div>
+                  <WifiOff className="mb-3 h-10 w-10 text-muted-foreground" aria-hidden="true" />
+                  <h3 className="text-lg font-semibold text-foreground">Keep selling when offline</h3>
+                  <p className="mt-2 text-muted-foreground">
+                    When internet connectivity is unavailable, Ceevora POS saves supported checkout transactions locally on the POS device. When connectivity returns, Ceevora automatically syncs the saved transactions to the cloud database.
+                  </p>
+                  <p className="mt-2 text-muted-foreground">
+                    Electronic payment availability during an outage depends on your payment provider and terminal setup.
+                  </p>
+                </div>
+                <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
+                  <li>Record the sale on the POS device</li>
+                  <li>Restore internet connectivity</li>
+                  <li>Sync saved sales to the cloud database</li>
+                </ol>
+              </article>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Features Section - Accordion */}
-      <Feature197 features={accordionFeatures} title="See Cevora POS in action" description="Explore the operations dashboard, inventory workspace, and optional AI reporting." />
+      <Feature197 features={accordionFeatures} title="See Ceevora POS in action" description="Explore the operations dashboard, inventory workspace, and optional AI reporting." />
 
 
-      {/* Testimonials Section */}
-      <Testimonials title="POS capabilities" subtitle="Tools for each part of the business" description="Explore the features and optional modules behind the checkout." testimonials={moduleHighlights} />
+      <section id="modules" className="scroll-mt-16 bg-muted/40 py-20 lg:py-28 dark:bg-muted/20">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <h2 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">Ceevora POS modules</h2>
+            <p className="text-xl text-muted-foreground">Explore the workflows that fit your operation, from a single register to a central kitchen serving multiple branches.</p>
+          </div>
+          <Accordion type="multiple" className="mx-auto max-w-4xl">
+            {modules.map(({ title, description }) => (
+              <AccordionItem key={title} value={title}>
+                <AccordionTrigger className="text-left text-base font-semibold text-foreground">{title}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{description}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
 
       {/* Final CTA */}
       <section className="py-24 lg:py-32 bg-black">
@@ -380,8 +373,8 @@ export default function Landing() {
             </p>
 
             <Button size="lg" className="h-11 px-10 text-base font-semibold bg-background text-foreground hover:bg-background/90 shadow-lg shadow-background/20" asChild>
-              <Link to="/signup">
-                Create an account
+              <Link to="/contact">
+                Contact us
               </Link>
             </Button>
             

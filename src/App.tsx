@@ -15,8 +15,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 
 // Public Pages
 import Landing from "@/pages/Landing";
-import Pricing from "@/pages/Pricing";
-import Webinar from "@/pages/Webinar";
+import Contact from "@/pages/Contact";
 import HelpCenter from "@/pages/HelpCenter";
 import Login from "@/pages/auth/Login";
 import Signup from "@/pages/auth/Signup";
@@ -50,9 +49,8 @@ const App = () => (
               {/* Public Routes */}
               <Route element={<PublicLayout />}>
                 <Route path="/" element={<Landing />} />
-                <Route path="/pricing" element={<Pricing />} />
-                <Route path="/webinar" element={<Webinar />} />
                 <Route path="/help" element={<HelpCenter />} />
+                <Route path="/contact" element={<Contact />} />
               </Route>
 
               {/* Auth Routes (no layout) */}

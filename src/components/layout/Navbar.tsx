@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Walkthrough", href: "/webinar" },
-  { name: "Pricing", href: "/pricing" },
+  { name: "Product", href: "/#workspace" },
   { name: "Help", href: "/help" },
 ];
 
@@ -49,13 +48,10 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Auth Buttons */}
+          {/* Desktop Contact */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/login">Login</Link>
-            </Button>
             <Button size="sm" className="bg-black hover:bg-black/90" asChild>
-              <Link to="/signup">Create an account</Link>
+              <Link to="/contact">Contact us</Link>
             </Button>
           </div>
 
@@ -64,6 +60,8 @@ export function Navbar() {
             variant="ghost"
             size="icon"
             className="md:hidden"
+            aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -92,11 +90,8 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="pt-4 mt-4 border-t border-border space-y-2">
-                <Button variant="outline" className="w-full" asChild>
-                  <Link to="/login">Login</Link>
-                </Button>
                 <Button className="w-full bg-black hover:bg-black/90" asChild>
-                  <Link to="/signup">Create an account</Link>
+                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact us</Link>
                 </Button>
               </div>
             </div>
