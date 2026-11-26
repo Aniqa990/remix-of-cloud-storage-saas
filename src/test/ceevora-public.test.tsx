@@ -113,14 +113,13 @@ describe("Ceevora public website", () => {
       image.src.split("/").pop(),
     );
     const englishImages = imageNames();
-    expect(englishImages).toHaveLength(10);
+    expect(englishImages).toHaveLength(8);
     expect(englishImages[0]).toBe("cevora-dashboard.png");
 
     fireEvent.change(language, { target: { value: "ar" } });
     await waitFor(() => expect(imageNames()).toEqual([
       "ar-dashboard.png", "ar-terminal.png", "ar-transaction_history.png", "ar-products.png",
-      "ar-promotions.png", "ar-stock.png", "ar-static_report.png", "ar-stores.png",
-      "ar-jv_details.png", "ar-AI_report.png",
+      "ar-promotions.png", "ar-stock.png", "ar-stores.png", "ar-jv_details.png",
     ]));
 
     fireEvent.change(language, { target: { value: "en" } });

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import "@/components/marketing/public-site.css";
 
 export function PublicLayout() {
   usePublicDocumentLanguage();
@@ -19,7 +20,7 @@ export function PublicLayout() {
   return (
     <div className="ceevora-public min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <main className="flex-1">
+      <main id="public-main" tabIndex={-1} className="flex-1">
         <Outlet />
       </main>
       <Footer />

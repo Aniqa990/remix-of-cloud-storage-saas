@@ -159,10 +159,6 @@
     --ring: var(--primary);
   }
 
-  .ceevora-hero {
-    background: linear-gradient(150deg, #e2f3ea, #edf5fa 52%, #fff 95%);
-  }
-
   /* Card Variants */
   .card-elevated {
     @apply bg-card rounded-xl border border-border;

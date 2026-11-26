@@ -19,18 +19,18 @@ const NotFound = () => {
   return (
     <div className="ceevora-public min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <main className="flex-1 flex items-center justify-center pt-16">
-        <div className="text-center px-6">
+      <main id="public-main" tabIndex={-1} className="public-not-found flex-1" data-enter>
+        <div className="public-wrap">
           <p className="text-sm font-medium text-muted-foreground mb-3">404</p>
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4">
+          <h1 className="public-display">
             {t("marketing.notFound")}
           </h1>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
             {t("marketing.notFoundBody")}
           </p>
-          <Button asChild>
+          <Button className="public-button" asChild>
             <Link to="/">
-              <ArrowLeft className="w-4 h-4 me-2 rtl:rotate-180" />
+              <ArrowLeft aria-hidden="true" />
               {t("marketing.backHome")}
             </Link>
           </Button>

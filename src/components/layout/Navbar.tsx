@@ -1,8 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, ChevronDown, Globe2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -12,105 +11,90 @@ const navLinks = [
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
+  const { pathname, hash } = useLocation();
   const language = i18n.resolvedLanguage === "ar" ? "ar" : "en";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (!isMenuOpen) return;
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      setIsMenuOpen(false);
+      toggle.current?.focus();
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isMenuOpen]);
+
+  function renderLinks() {
+    return navLinks.map(({ name, href }) => (
+      <Link
+        key={name}
+        to={href}
+        aria-current={pathname + (name === "product" ? hash : "") === href ? "page" : undefined}
+        onClick={() => setIsMenuOpen(false)}
+      >
+        {t(`marketing.${name}`)}
+      </Link>
+    ));
+  }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? "bg-background/95 backdrop-blur-sm border-b border-border"
-        : "bg-background border-b border-border"
-    }`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/cevora-mark.png" alt="Ceevora POS" className="h-8 w-auto object-contain" />
+    <>
+      <a href="#public-main" className="public-skip">
+        {language === "ar" ? "انتقل إلى المحتوى" : "Skip to content"}
+      </a>
+      <header className="public-header">
+        <nav className="public-wrap public-nav">
+          <Link to="/" className="public-logo" onClick={() => setIsMenuOpen(false)}>
+            <img src="/cevora-mark.png" alt="Ceevora POS" width={2170} height={725} />
           </Link>
-
-          {/* Desktop Navigation - Left aligned */}
-          <div className="hidden md:flex items-center gap-1 ms-8 flex-1">
-            {navLinks.map((link) => (
-              <Link
-                key={t(`marketing.${link.name}`)}
-                to={link.href}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          <div className="public-nav-links">{renderLinks()}</div>
+          <div className="public-nav-actions">
+            <div className="public-language">
+              <Globe2 aria-hidden="true" />
+              <select
+                aria-label={t("marketing.language")}
+                value={language}
+                onChange={(event) => void i18n.changeLanguage(event.target.value)}
               >
-                {t(`marketing.${link.name}`)}
-              </Link>
-            ))}
-          </div>
-
-          <select
-            aria-label={t("marketing.language")}
-            value={language}
-            onChange={(event) => void i18n.changeLanguage(event.target.value)}
-            className="ms-auto rounded-md border border-border bg-background px-2 py-1.5 text-sm text-foreground md:me-3"
-          >
-            <option value="en" lang="en">English</option>
-            <option value="ar" lang="ar">العربية</option>
-          </select>
-
-          {/* Desktop Contact */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button size="sm" asChild>
-              <Link to="/contact">{t("marketing.contact")}</Link>
+                <option value="en" lang="en">English</option>
+                <option value="ar" lang="ar">العربية</option>
+              </select>
+              <ChevronDown aria-hidden="true" />
+            </div>
+            <Button className="public-button public-nav-contact" asChild>
+              <Link to="/contact">{t("marketing.contact")}<ArrowRight aria-hidden="true" /></Link>
+            </Button>
+            <Button
+              ref={toggle}
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="public-menu-toggle"
+              aria-label={isMenuOpen ? t("marketing.closeNavigation") : t("marketing.openNavigation")}
+              aria-controls="public-mobile-nav"
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((open) => !open)}
+            >
+              {isMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            aria-label={isMenuOpen ? t("marketing.closeNavigation") : t("marketing.openNavigation")}
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border"
-          >
-            <div className="container mx-auto px-4 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={t(`marketing.${link.name}`)}
-                  to={link.href}
-                  className="block py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t(`marketing.${link.name}`)}
+          <div id="public-mobile-nav" className="public-mobile-nav" hidden={!isMenuOpen}>
+            <div className="public-wrap">
+              {renderLinks()}
+              <Button className="public-button" asChild>
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                  {t("marketing.contact")}<ArrowRight aria-hidden="true" />
                 </Link>
-              ))}
-              <div className="pt-4 mt-4 border-t border-border space-y-2">
-                <Button className="w-full" asChild>
-                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>{t("marketing.contact")}</Link>
-                </Button>
-              </div>
+              </Button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+          </div>
+        </nav>
+      </header>
+    </>
   );
 }

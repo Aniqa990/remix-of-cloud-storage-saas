@@ -13,36 +13,28 @@ const footerLinks = [
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="container mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 px-4 sm:px-6 lg:px-8 py-12">
-        <div className="col-span-2">
-          <Link to="/" className="flex items-center gap-2 mb-4">
-            <img src="/cevora-mark.png" alt="Ceevora POS" className="h-6 w-auto object-contain" />
+    <footer className="public-footer">
+      <div className="public-wrap footer-layout">
+        <div className="footer-brand">
+          <Link to="/" className="public-logo">
+            <img src="/cevora-mark.png" alt="Ceevora POS" width={2170} height={725} />
           </Link>
-          <p className="text-sm text-muted-foreground max-w-xs">
-            {t("marketing.footerTagline")}
-          </p>
+          <p>{t("marketing.footerTagline")}</p>
         </div>
         {footerLinks.map(({ title, links }) => (
           <div key={title}>
-            <h2 className="font-medium text-foreground text-sm mb-4">{t(`marketing.${title}`)}</h2>
-            <ul className="space-y-3">
+            <h2>{t(`marketing.${title}`)}</h2>
+            <ul>
               {links.map(({ name, href }) => (
-                <li key={href}>
-                  <Link to={href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    {t(`marketing.${name}`)}
-                  </Link>
-                </li>
+                <li key={href}><Link to={href}>{t(`marketing.${name}`)}</Link></li>
               ))}
             </ul>
           </div>
         ))}
       </div>
-      <div className="border-t border-border">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-6 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Ceevora POS</p>
-          <a dir="ltr" href="mailto:info@ceevora.com" className="hover:text-foreground">info@ceevora.com</a>
-        </div>
+      <div className="public-wrap footer-meta">
+        <p dir="ltr">© {new Date().getFullYear()} Ceevora POS</p>
+        <a dir="ltr" href="mailto:info@ceevora.com">info@ceevora.com</a>
       </div>
     </footer>
   );

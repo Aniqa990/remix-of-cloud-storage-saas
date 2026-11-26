@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { X, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import {
   Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi,
 } from "@/components/ui/carousel";
@@ -45,56 +45,59 @@ export function WorkspaceGallery({ screenshots, onZoom }: {
   const screenshot = screenshots[selected];
   return (
     <Carousel
+      className="workspace-gallery"
       dir={direction}
       aria-labelledby="workspace-gallery-title"
       opts={{ loop: true, align: "center", direction }}
       setApi={setApi}
       onKeyDownCapture={handleArrowKey}
     >
-      <CarouselContent className="!m-0 touch-pan-y gap-2 sm:gap-3">
-        {screenshots.map((item, index) => {
-          const active = index === selected;
-          return (
-            <CarouselItem key={item.id} className="!basis-[calc(100%-3rem)] !p-0 max-w-[976px]">
-              <button
-                type="button"
-                tabIndex={active ? 0 : -1}
-                aria-label={t(active ? "marketing.zoom" : "marketing.goToScreenshot", { title: item.title })}
-                onClick={() => active ? onZoom(item) : api?.scrollTo(index)}
-                className={`group relative block aspect-video w-full overflow-hidden rounded-xl border border-border/60 bg-muted/40 transition duration-300 motion-reduce:transition-none ${active ? "cursor-zoom-in opacity-100" : "scale-y-[0.87] opacity-[0.35] hover:opacity-60"}`}
-              >
-                <img src={item.src} alt="" loading="lazy" draggable={false} className="h-full w-full object-contain" />
-                {active && (
-                  <span className="absolute bottom-3 end-3 rounded-full bg-black/75 p-2 text-white" aria-hidden="true">
-                    <ZoomIn className="size-4" />
-                  </span>
-                )}
-              </button>
-            </CarouselItem>
-          );
-        })}
-      </CarouselContent>
-      <div className="mx-auto mt-1.5 max-w-3xl px-6 text-center text-sm text-muted-foreground" aria-live="polite">
-        <strong className="block font-medium text-foreground">{screenshot.title}</strong>
-        {screenshot.description && <p className="mt-1">{screenshot.description}</p>}
-      </div>
-      <div className="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4">
-        <CarouselPrevious size="default" className="static h-10 w-auto translate-y-0">{t("marketing.previous")}</CarouselPrevious>
-        <div className="flex items-center">
-          {screenshots.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-label={t("marketing.goToScreenshot", { title: item.title })}
-              aria-current={index === selected ? "true" : undefined}
-              className="flex size-6 items-center justify-center rounded-full sm:size-7"
-              onClick={() => api?.scrollTo(index)}
-            >
-              <span className={`size-2 rounded-full ${index === selected ? "bg-foreground" : "bg-muted-foreground/40"}`} />
-            </button>
-          ))}
+      <div className="workspace-viewer">
+        <div className="workspace-viewer-bar">
+          <strong aria-live="polite">{screenshot.title}</strong>
+          <div className="workspace-pagination">
+            <CarouselPrevious size="default" className="workspace-arrow static">
+              <ChevronLeft className="rtl:rotate-180" aria-hidden="true" />{t("marketing.previous")}
+            </CarouselPrevious>
+            <CarouselNext size="default" className="workspace-arrow static">
+              {t("marketing.next")}<ChevronRight className="rtl:rotate-180" aria-hidden="true" />
+            </CarouselNext>
+          </div>
         </div>
-        <CarouselNext size="default" className="static h-10 w-auto translate-y-0">{t("marketing.next")}</CarouselNext>
+        <CarouselContent className="!m-0 touch-pan-y">
+          {screenshots.map((item, index) => {
+            const active = index === selected;
+            return (
+              <CarouselItem key={item.id} className="!p-0">
+                <button
+                  type="button"
+                  tabIndex={active ? 0 : -1}
+                  aria-label={t(active ? "marketing.zoom" : "marketing.goToScreenshot", { title: item.title })}
+                  onClick={() => active ? onZoom(item) : api?.scrollTo(index)}
+                  className="workspace-screen"
+                >
+                  <img src={item.src} alt="" loading="lazy" draggable={false} />
+                  {active && <span className="screen-zoom" aria-hidden="true"><Maximize2 /></span>}
+                </button>
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+        {screenshot.description && <p className="workspace-description">{screenshot.description}</p>}
+      </div>
+      <div className="workspace-index">
+        {screenshots.map((item, index) => (
+          <button
+            key={item.id}
+            type="button"
+            aria-label={t("marketing.goToScreenshot", { title: item.title })}
+            aria-current={index === selected ? "true" : undefined}
+            onClick={() => api?.scrollTo(index)}
+          >
+            <span>{item.title}</span>
+            <ChevronRight className="rtl:rotate-180" aria-hidden="true" />
+          </button>
+        ))}
       </div>
     </Carousel>
   );
@@ -128,7 +131,7 @@ export function ScreenshotZoom({ screenshot, onClose }: {
     >
       {screenshot && (
         <div className="relative">
-          <button type="button" aria-label={t("marketing.unzoom")} onClick={onClose} className="absolute end-2 top-2 z-10 rounded-full bg-black/80 p-2">
+          <button type="button" aria-label={t("marketing.unzoom")} onClick={onClose} className="absolute end-2 top-2 z-10 grid size-11 place-items-center rounded-full bg-black/80">
             <X className="size-5" aria-hidden="true" />
           </button>
           <button type="button" aria-label={t("marketing.unzoom")} onClick={onClose} className="block cursor-zoom-out">

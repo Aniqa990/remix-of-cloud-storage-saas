@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { type FormEvent, type ReactNode, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,7 +23,6 @@ const countryCodes: Record<string, string> = callingCodes;
 const citiesByCountry: Record<string, string[]> = cities;
 const dialCodes = [...new Set(Object.values(countryCodes).filter(Boolean))]
   .sort((a, b) => Number(a) - Number(b));
-const selectClass = "h-10 w-full rounded-md border border-input bg-background px-2 text-sm text-foreground focus-ring disabled:opacity-50";
 
 export default function Contact() {
   const { t, i18n } = useTranslation();
@@ -70,14 +68,14 @@ export default function Contact() {
 
   const controls: Record<string, ReactNode> = {
     country: (
-      <select id="country" name="country" autoComplete="country" required className={selectClass} value={country} onChange={(event) => selectCountry(event.target.value)}>
+      <select id="country" name="country" autoComplete="country" required className="focus-ring" value={country} onChange={(event) => selectCountry(event.target.value)}>
         <option value="">{t("marketing.selectCountry")}</option>
         {countries.map(({ code, name }) => <option key={code} value={code}>{name}</option>)}
       </select>
     ),
     city: (
       <>
-        <select id="city" name="city" autoComplete="address-level2" required disabled={!country} className={selectClass} value={city} onChange={(event) => setCity(event.target.value)}>
+        <select id="city" name="city" autoComplete="address-level2" required disabled={!country} className="focus-ring" value={city} onChange={(event) => setCity(event.target.value)}>
           <option value="">{t("marketing.selectCity")}</option>
           {citiesByCountry[country]?.map((name) => <option key={name} value={name}>{name}</option>)}
           <option value="other">{t("marketing.otherCity")}</option>
@@ -90,48 +88,48 @@ export default function Contact() {
     phone: (
       <>
         <div className="grid grid-cols-[5.25rem_minmax(0,1fr)] gap-2" dir="ltr">
-          <select name="dialCode" required autoComplete="tel-country-code" className={selectClass} aria-label={t("marketing.dialCode")} value={dialCode} onChange={(event) => setDialCode(event.target.value)}>
+          <select name="dialCode" required autoComplete="tel-country-code" className="focus-ring" aria-label={t("marketing.dialCode")} value={dialCode} onChange={(event) => setDialCode(event.target.value)}>
             <option value="">{t("marketing.selectDialCode")}</option>
             {dialCodes.map((code) => <option key={code} value={code}>{code}</option>)}
           </select>
           <Input id="phone" name="phone" type="tel" autoComplete="tel-national" required maxLength={27} pattern={`[0-9](?: ?[0-9]){3,${dialCode ? 15 - dialCode.length : 13}}`} aria-describedby="phone-hint" />
         </div>
-        <p id="phone-hint" className="text-sm text-muted-foreground">{t("marketing.phoneHint")}</p>
+        <p id="phone-hint" className="contact-hint">{t("marketing.phoneHint")}</p>
       </>
     ),
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-6">
-          <Mail className="w-8 h-8 text-primary" />
+    <section className="contact-page" data-enter>
+      <div className="public-wrap contact-layout">
+        <div className="contact-intro">
+          <div className="contact-intro-copy">
+            <h1 className="public-display">{t("marketing.contactTitle")}</h1>
+            <p>{t("marketing.contactIntro")}</p>
+          </div>
+          <Mail className="contact-illustration" aria-hidden="true" />
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">{t("marketing.contactTitle")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {t("marketing.contactIntro")}
-        </p>
-      </motion.div>
-      <form onSubmit={openDemoEmail} className="max-w-2xl mx-auto rounded-2xl border border-border bg-muted p-6 sm:p-8 space-y-6">
-        <div className="grid sm:grid-cols-2 gap-4">
-          {fields.map(({ name, ...input }) => (
-            <div key={name} className="space-y-2">
-              <Label htmlFor={name}>
-                {t(`marketing.field_${name}`)} {!input.required && t("marketing.optional")}
-              </Label>
-              {controls[name] ?? <Input id={name} name={name} {...input} />}
-            </div>
-          ))}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="notes">{t("marketing.notes")} {t("marketing.optional")}</Label>
-          <Textarea id="notes" name="notes" rows={4} maxLength={2000} placeholder={t("marketing.notesPlaceholder")} />
-        </div>
-        <p id="email-instructions" className="text-sm text-muted-foreground">
-          {t("marketing.emailInstructions")}
-        </p>
-        <Button type="submit" className="w-full" aria-describedby="email-instructions">{t("marketing.emailButton")}</Button>
-      </form>
-    </div>
+        <form onSubmit={openDemoEmail} className="contact-form">
+          <div className="contact-fields">
+            {fields.map(({ name, ...input }) => (
+              <div key={name} className="contact-field">
+                <Label htmlFor={name}>
+                  {t(`marketing.field_${name}`)} {!input.required && t("marketing.optional")}
+                </Label>
+                {controls[name] ?? <Input id={name} name={name} {...input} />}
+              </div>
+            ))}
+          </div>
+          <div className="contact-field">
+            <Label htmlFor="notes">{t("marketing.notes")} {t("marketing.optional")}</Label>
+            <Textarea id="notes" name="notes" rows={4} maxLength={2000} placeholder={t("marketing.notesPlaceholder")} />
+          </div>
+          <p id="email-instructions" className="contact-hint">
+            {t("marketing.emailInstructions")}
+          </p>
+          <Button type="submit" className="public-button" aria-describedby="email-instructions">{t("marketing.emailButton")}<ArrowRight aria-hidden="true" /></Button>
+        </form>
+      </div>
+    </section>
   );
 }
